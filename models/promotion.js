@@ -1,37 +1,38 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema; //making shorthand to the mongoose.schema function, so we can refer to it as schema instead of mongoose.schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+require("mongoose-currency").loadType(mongoose);
+const Currency = mongoose.Types.Currency;
 
-require('mongoose-currency').loadType(mongoose);    //loads currency type into mongoose
-const Currency = mongoose.Types.Currency;   //shorthand for mongoose.TYpes.Currency
-
-const promotionSchema = new Schema({
+const promotionSchema = new Schema(
+  {
     name: {
-        type: String,
-        required: true,
-        unique: true
+      type: String,
+      required: true,
+      unique: true
     },
     image: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     featured: {
-        type: Boolean,
-        default: false
+      type: Boolean,
+      default: false
     },
     cost: {
-        type: Currency,
-        required: true,
-        min: 0
+      type: Currency,
+      required: true,
+      min: 0
     },
     description: {
-        type: String,
-        required: true
-    }
-}, {
+      type: String,
+      required: true
+    },
+  },
+  {
     timestamps: true
-});
+  }
+);
 
-//create model, Partner, for the data
-const Promotion = mongoose.model('Promotion', promotionSchema);
+const Promotion = mongoose.model("Promotion", promotionSchema);
 
 module.exports = Promotion;
